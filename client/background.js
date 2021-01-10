@@ -1,8 +1,7 @@
-const socket = io('http://127.0.0.1:5000/');
+var socket = io('http://127.0.0.1:5000');
 var nameID;
 var roomID;
 var connected = false;
-socket.disconnect();
 
 // Listen to messages
 chrome.runtime.onMessage.addListener(
@@ -13,7 +12,6 @@ chrome.runtime.onMessage.addListener(
       nameID = request.nameID;
       roomID = request.roomID;
       console.log('connect', nameID, roomID);
-      socket.connect();
     }
   }
 );
