@@ -1,4 +1,4 @@
-var socket = io('http://127.0.0.1:5000');
+const socket = io('http://127.0.0.1:5000');
 var nameID;
 var roomID;
 var connected = false;
@@ -12,6 +12,7 @@ chrome.runtime.onMessage.addListener(
       nameID = request.nameID;
       roomID = request.roomID;
       console.log('connect', nameID, roomID);
+      socket.connect();
     }
   }
 );
@@ -19,13 +20,13 @@ chrome.runtime.onMessage.addListener(
 // Runs when you connect
 socket.on('connect', function() {
   connected = true;
-  socket.emit('connect', nameID, roomID);
+  socket.emit('userConnect', nameID, roomID);
  });
 
 // Listens and relays updates to popup.js
-socket.on('update', function(arg1, arg2) {
+socket.on('update', function(people, statuses) {
   chrome.runtime.sendMessage(
-    {"type": "update", "one": arg1, "two": arg2});
+    {"type": "update", "people": people, "statuses": statuses});
 });
 
 // Called when a new page is loaded
