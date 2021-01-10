@@ -8,11 +8,10 @@ for url in url_lst:
     website = url[:idx]
     website_lst.append(website)
 
-for website in website_lst: 
-    print(website)
+# for website in website_lst: 
+#     print(website)
 
-
-def isURLBad(url): 
+def checkURL(url): 
     idx1 = url.find(".")
     website = url[idx1+1:len(url)]
     idx2 = website.find(".")
@@ -23,8 +22,8 @@ def isURLBad(url):
     else:
         return False
 
-
-## Test Case
-print ("Expected: True; Actual: ", isURLBad("wwww.4chan.com"))
-print ("Expected: False; Actual: ", isURLBad("https://github.com/basilw/Pomhub?fbclid=IwAR1j__ahxRNGAK9zbt9nDLSSn3Rn0ZM8Hi-_WZ9wEgcnb4sGKy1SFgFcsko"))
-print ("Expected: True; Actual: ", isURLBad("https://www.facebook.com/varun.kukunoor"))
+if __name__ == "__main__":
+    ## Test Case
+    print ("Expected: True; Actual: ", checkURL("wwww.4chan.com"))
+    print ("Expected: False; Actual: ", checkURL("https://github.com/basilw/Pomhub?fbclid=IwAR1j__ahxRNGAK9zbt9nDLSSn3Rn0ZM8Hi-_WZ9wEgcnb4sGKy1SFgFcsko"))
+    print ("Expected: True; Actual: ", checkURL("https://www.facebook.com/varun.kukunoor"))

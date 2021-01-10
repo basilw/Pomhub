@@ -12,7 +12,7 @@ chrome.runtime.onMessage.addListener(
       nameID = request.nameID;
       roomID = request.roomID;
       console.log('connect', nameID, roomID);
-      socket.connect();
+      socket.emit('entered', nameID, roomID)
     }
   }
 );
@@ -20,14 +20,20 @@ chrome.runtime.onMessage.addListener(
 // Runs when you connect
 socket.on('connect', function() {
   connected = true;
-  socket.emit('userConnect', nameID, roomID);
+  socket.send("User connected")
  });
 
 // Listens and relays updates to popup.js
 socket.on('update', function(people, statuses) {
+    console.log(people, statuses)
   chrome.runtime.sendMessage(
     {"type": "update", "people": people, "statuses": statuses});
 });
+
+socket.on('alert', function(name, url) {
+    console.log("alerted", url)
+}
+);
 
 // Called when a new page is loaded
 chrome.webNavigation.onDOMContentLoaded.addListener(function(tab) {

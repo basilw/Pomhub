@@ -1,26 +1,25 @@
 from flask import Flask, render_template, request
-from flask_socketio import SocketIO, send, join_room, leave_room
+from flask_socketio import SocketIO
+import detection
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app,cors_allowed_origins="*")
-
-@app.route('/')
-def home():
-    return render_template("index.html")
-
-@app.route('/enter')
-def enter_room():
-    username = request.args.get('username')
-    room = request.args.get('room')
-
-    if username and room:
-        return render_template('chat.html', username=username, room=room)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 @socketio.on('message')
-def handleMsg(msg):
+def connected(msg):
     print(msg)
-    send(msg, broadcast=True)
+
+@socketio.on('entered')
+def update_room(name, room):
+    print(name, room)   
+    socketio.emit('update', (name, room), broadcast=True)
+
+@socketio.on('pageload')
+def alert_room(name, room, url):
+    print(name, room, url)
+    if detection.checkURL(url):
+        socketio.emit('alert', (name, room, url), broadcast=True)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
