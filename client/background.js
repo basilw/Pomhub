@@ -1,4 +1,4 @@
-const socket = io('http://localhost');
+const socket = io('http://localhost:5000');
 var nameID;
 var roomID;
 
