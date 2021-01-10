@@ -1,0 +1,13 @@
+{
+  "manifest_version": 2,
+  "name": "Who's Distracted?",
+  "version": "0.1",
+  "background": {
+   "scripts": ["socketio.js", "background.js"]
+  },
+ "browser_action": {
+   "default_icon": "icon.png",   
+   "default_title": "Who's Distracted?",
+   "default_popup": "popup.html"},
+ "permissions": ["tabs", "activeTab", "webNavigation", "<all_urls>" ]
+}
