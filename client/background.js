@@ -16,7 +16,7 @@ chrome.runtime.onMessage.addListener(
     }
     if(request.type === "chatMessage") {
         message = request.msg 
-        console.log()
+        socket.emit('message', message);
     }
   }
 );
@@ -34,10 +34,13 @@ socket.on('update', function(name, room) {
     {"type": "update", "name": name, "room": room});
 });
 
+socket.on('message', function(message) {
+    chrome.runtime.sendMessage({"type": "addMessage", "message": message});
+});
+
 socket.on('alert', function(name, url) {
     console.log("alerted", url)
-}
-);
+});
 
 // Called when a new page is loaded
 chrome.webNavigation.onDOMContentLoaded.addListener(function(tab) {
