@@ -14,6 +14,10 @@ chrome.runtime.onMessage.addListener(
       console.log('connect', nameID, roomID);
       socket.emit('entered', nameID, roomID);
     }
+    if(request.type === "chatMessage") {
+        message = request.msg 
+        console.log()
+    }
   }
 );
 
@@ -24,10 +28,10 @@ socket.on('connect', function() {
  });
 
 // Listens and relays updates to popup.js
-socket.on('update', function(people, statuses) {
-    console.log(people, statuses)
+socket.on('update', function(name, room) {
+    console.log(name, room)
   chrome.runtime.sendMessage(
-    {"type": "update", "people": people, "statuses": statuses});
+    {"type": "update", "name": name, "room": room});
 });
 
 socket.on('alert', function(name, url) {
