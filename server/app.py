@@ -9,6 +9,7 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 @socketio.on('message')
 def connected(msg):
     print(msg)
+    socketio.emit('message', (msg), broadcast=True)
 
 @socketio.on('entered')
 def update_room(name, room):
