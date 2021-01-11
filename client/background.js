@@ -12,7 +12,7 @@ chrome.runtime.onMessage.addListener(
       nameID = request.nameID;
       roomID = request.roomID;
       console.log('connect', nameID, roomID);
-      socket.emit('entered', nameID, roomID)
+      socket.emit('entered', nameID, roomID);
     }
   }
 );
