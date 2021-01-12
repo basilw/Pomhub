@@ -3,7 +3,7 @@
   "name": "Who's Distracted?",
   "version": "0.1",
   "background": {
-   "scripts": ["socket.io.js", "background.js"]
+   "scripts": ["socket.io.js"]
   },
  "browser_action": {
    "default_icon": "icon.png",   
